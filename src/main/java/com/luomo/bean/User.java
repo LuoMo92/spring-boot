@@ -1,13 +1,22 @@
 package com.luomo.bean;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
  * @author LiuMei
  * @date 2018-06-19.
  */
+@Entity
 public class User {
 
+    @Id
+    @GeneratedValue
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
     private Integer age;

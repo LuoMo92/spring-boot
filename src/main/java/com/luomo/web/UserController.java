@@ -1,9 +1,11 @@
 package com.luomo.web;
 
 import com.luomo.bean.User;
+import com.luomo.repository.UserRepository;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -16,23 +18,20 @@ import java.util.*;
 @RequestMapping("/user/")
 public class UserController {
 
-    /**
-     * 创建线程安全的Map
-     */
-    static Map<Long, User> users = Collections.synchronizedMap(new HashMap<Long, User>());
+    @Autowired
+    private UserRepository userRepository;
 
     @ApiOperation(value = "获取用户列表", notes = "获取所有用户")
     @RequestMapping(method = RequestMethod.GET)
     public List<User> getUserList() {
-        List<User> list = new ArrayList<>(users.values());
-        return list;
+        return userRepository.findAll();
     }
 
     @ApiOperation(value = "创建用户", notes = "根据User对象创建用户")
     @ApiImplicitParam(name = "user", value = "用户详细实体user", required = true, dataType = "User")
     @RequestMapping(method = RequestMethod.POST)
-    public String postUser(@ModelAttribute User user) {
-        users.put(user.getId(), user);
+    public String postUser(@RequestBody User user) {
+       userRepository.save(user);
         return "success";
     }
 
@@ -40,7 +39,7 @@ public class UserController {
     @ApiImplicitParam(name = "id", value = "用户ID", required = true, paramType = "path", dataType = "Long")
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public User getUser(@PathVariable long id) {
-        return users.get(id);
+        return userRepository.findById(id);
     }
 
     @ApiOperation(value = "更新用户详细信息", notes = "根据url的id来指定更新对象，并根据传过来的user信息来更新用户详细信息")
@@ -49,11 +48,11 @@ public class UserController {
             @ApiImplicitParam(name = "user", value = "用户详细实体user", required = true, dataType = "User")
     })
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-    public String putUser(@PathVariable long id, @ModelAttribute User user) {
-        User u = users.get(id);
+    public String putUser(@PathVariable long id, @RequestBody User user) {
+        User u = userRepository.findById(id);
         u.setName(user.getName());
         u.setAge(user.getAge());
-        users.put(id, u);
+        userRepository.save(u);
         return "success";
     }
 
@@ -61,7 +60,7 @@ public class UserController {
     @ApiImplicitParam(name = "id", value = "用户ID", required = true, paramType = "path", dataType = "Long")
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public String deleteUser(@PathVariable long id) {
-        users.remove(id);
+        userRepository.deleteById(id);
         return "success";
     }
 }
