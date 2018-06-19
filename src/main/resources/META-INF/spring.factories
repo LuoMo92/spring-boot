@@ -1,0 +1,2 @@
+##配置监听器
+org.springframework.context.ApplicationListener=com.luomo.listener.ApplicationPreparedEventListener,com.luomo.listener.ApplicationReadyEventListener,com.luomo.listener.ApplicationStartedEventListener
