@@ -1,5 +1,6 @@
 package com.luomo.task;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
@@ -12,11 +13,13 @@ import java.util.concurrent.Future;
  * @date 2018-06-19.
  */
 @Component
+@Slf4j
 public class Task {
 
     public static Random random = new Random();
 
-    @Async
+    //指定线程池名
+    @Async("taskExecutor")
     public Future<String> doTaskOne() throws Exception {
         System.out.println("开始做任务一");
         long start = System.currentTimeMillis();

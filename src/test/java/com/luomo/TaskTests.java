@@ -1,6 +1,7 @@
 package com.luomo;
 
 import com.luomo.task.Task;
+import com.luomo.task.Task2;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,11 @@ public class TaskTests {
     @Autowired
     private Task task;
 
+    @Autowired
+    private Task2 task2;
+
     @Test
-    public void test() throws Exception {
+    public void testAsync() throws Exception {
 
         long start = System.currentTimeMillis();
 
@@ -35,12 +39,19 @@ public class TaskTests {
             }
             Thread.sleep(1000);
         }
-
         long end = System.currentTimeMillis();
-
         System.out.println("任务全部完成，总耗时：" + (end - start) + "毫秒");
 
     }
 
+    @Test
+    public void testThreadPool() throws Exception {
+
+        task2.doTaskOne();
+        task2.doTaskTwo();
+        task2.doTaskThree();
+
+        Thread.currentThread().join();
+    }
 
 }
