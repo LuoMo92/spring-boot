@@ -19,8 +19,6 @@ public class PropertiesTests {
     @Test
     public void test() throws Exception {
         Assert.assertEquals(selfProperties.getName(), "落墨test");
-//        Assert.assertEquals(selfProperties.getTitle(), "Spring Boot学习dev");
-//        Assert.assertEquals(selfProperties.getDesc(), "落墨dev正在进行Spring Boot学习dev");
     }
 
 
