@@ -1,8 +1,7 @@
 package com.luomo.web;
 
 import com.luomo.exception.MyException;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author LiuMei
@@ -19,5 +18,11 @@ public class HelloController {
     @RequestMapping("/json")
     public String json() throws MyException{
         throw new MyException("发生错误");
+    }
+
+    @RequestMapping(value = "/hello2", method = RequestMethod.GET)
+    @ResponseBody
+    public String hello(@RequestParam String name) {
+        return "Hello " + name;
     }
 }
