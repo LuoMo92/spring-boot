@@ -18,19 +18,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                ///和/hello不需要任何认证就可以访问，其他的路径都必须通过身份验证。
-                .antMatchers("/", "/hello").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                //通过formLogin()定义当需要用户登录时候，转到的登录页面
-                .formLogin()
-                .loginPage("/login")
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll();
+//        http
+//                .authorizeRequests()
+//                ///和/hello不需要任何认证就可以访问，其他的路径都必须通过身份验证。
+//                .antMatchers("/", "/hello").permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//                //通过formLogin()定义当需要用户登录时候，转到的登录页面
+//                .formLogin()
+//                .loginPage("/login")
+//                .permitAll()
+//                .and()
+//                .logout()
+//                .permitAll();
     }
 
     /**

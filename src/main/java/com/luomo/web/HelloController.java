@@ -23,6 +23,6 @@ public class HelloController {
     @RequestMapping(value = "/hello2", method = RequestMethod.GET)
     @ResponseBody
     public String hello(@RequestParam String name) {
-        return "Hello " + name;
+        return "Hello1tt1 " + name;
     }
 }
